@@ -1,0 +1,106 @@
+{
+  "name": "mindsdb",
+  "displayName": "MindsDB",
+  "description": "An extension for MindsDB",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.69.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:mindsdb.connect",
+    "onView:mindsdb"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "mindsdb.connect",
+        "title": "Create Connection",
+        "icon": "$(add)"
+      },
+      {
+        "command": "mindsdb.disconnect",
+        "title": "Disconnect",
+        "icon": "$(remove)"
+      },
+      {
+        "command": "mindsdb.adddatasource",
+        "title": "Add Datasource",
+        "icon": "$(add)"
+      },
+      {
+        "command": "mindsdb.removedatasource",
+        "title": "Remove Datasource",
+        "icon": "$(remove)"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "mindsdb",
+          "name": "Minds DB",
+          "type": "tree"
+        }
+      ] 
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "mindsdb.connect",
+          "group": "navigation",
+          "when": "view == mindsdb"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "mindsdb.disconnect",
+          "group": "inline",
+          "when": "view == mindsdb && viewItem == database"
+        },
+        {
+          "command": "mindsdb.adddatasource",
+          "group": "inline",
+          "when": "view == mindsdb && viewItem == datasources"
+        },
+        {
+          "command": "mindsdb.removedatasource",
+          "group": "inline",
+          "when": "view == mindsdb && viewItem == datasource"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.69.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.18.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "mysql2": "^2.3.3"
+  }
+}
